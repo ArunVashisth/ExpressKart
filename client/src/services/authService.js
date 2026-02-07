@@ -3,7 +3,7 @@ import api from './api'
 class AuthService {
   async register(userData) {
     try {
-      const response = await api.post('/auth/register', userData)
+      const response = await api.post('/api/auth/register', userData)
       return response.data
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Registration failed')
@@ -12,7 +12,7 @@ class AuthService {
 
   async login(credentials) {
     try {
-      const response = await api.post('/auth/login', credentials)
+      const response = await api.post('/api/auth/login', credentials)
       return response.data
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Login failed')
@@ -21,7 +21,7 @@ class AuthService {
 
   async logout() {
     try {
-      await api.post('/auth/logout')
+      await api.post('/api/auth/logout')
     } catch (error) {
       console.error('Logout error:', error)
     }
@@ -29,7 +29,7 @@ class AuthService {
 
   async getCurrentUser() {
     try {
-      const response = await api.get('/auth/me')
+      const response = await api.get('/api/auth/me')
       return response.data.user
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to get user data')
@@ -38,7 +38,7 @@ class AuthService {
 
   async updateProfile(profileData) {
     try {
-      const response = await api.put('/auth/me', profileData)
+      const response = await api.put('/api/auth/me', profileData)
       return response.data.user
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Profile update failed')
@@ -47,7 +47,7 @@ class AuthService {
 
   async changePassword(passwordData) {
     try {
-      await api.post('/auth/change-password', passwordData)
+      await api.post('/api/auth/change-password', passwordData)
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Password change failed')
     }

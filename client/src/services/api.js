@@ -17,7 +17,7 @@ api.interceptors.request.use(
     const token = localStorage.getItem('token');
 
     // Auth endpoints that don't require tokens
-    const publicEndpoints = ['/auth/login', '/auth/register', '/auth/create-admin', '/auth/check-admin', '/auth/admin-exists'];
+    const publicEndpoints = ['/api/auth/login', '/api/auth/register', '/api/auth/create-admin', '/api/auth/check-admin', '/api/auth/admin-exists'];
     const isPublicEndpoint = publicEndpoints.some(endpoint => config.url?.includes(endpoint));
 
     // Only add token if available and not a public endpoint
@@ -95,27 +95,27 @@ const handleAuthFailure = () => {
 // Auth Services
 export const authAPI = {
   // Authentication
-  login: (credentials) => api.post('/auth/login', credentials),
-  register: (userData) => api.post('/auth/register', userData),
-  logout: () => api.post('/auth/logout'),
-  refreshToken: () => api.post('/auth/refresh-token'),
-  forgotPassword: (email) => api.post('/auth/forgot-password', { email }),
-  resetPassword: (token, password) => api.put(`/auth/reset-password/${token}`, { password }),
-  verifyEmail: (token) => api.get(`/auth/verify-email/${token}`),
-  resendVerification: (email) => api.post('/auth/resend-verification', { email }),
+  login: (credentials) => api.post('/api/auth/login', credentials),
+  register: (userData) => api.post('/api/auth/register', userData),
+  logout: () => api.post('/api/auth/logout'),
+  refreshToken: () => api.post('/api/auth/refresh-token'),
+  forgotPassword: (email) => api.post('/api/auth/forgot-password', { email }),
+  resetPassword: (token, password) => api.put(`/api/auth/reset-password/${token}`, { password }),
+  verifyEmail: (token) => api.get(`/api/auth/verify-email/${token}`),
+  resendVerification: (email) => api.post('/api/auth/resend-verification', { email }),
 
   // Profile
-  getProfile: () => api.get('/auth/me'),
-  updateProfile: (userData) => api.put('/auth/me', userData),
+  getProfile: () => api.get('/api/auth/me'),
+  updateProfile: (userData) => api.put('/api/auth/me', userData),
   updatePassword: (currentPassword, newPassword) =>
-    api.post('/auth/change-password', { currentPassword, newPassword }),
+    api.post('/api/auth/change-password', { currentPassword, newPassword }),
 
   // Admin
-  createAdmin: (adminData) => api.post('/auth/create-admin', adminData),
-  checkAdminExists: () => api.get('/auth/admin-exists'),
-  getAdminInfo: () => api.get('/auth/admin-info'),
-  checkAdmin: () => api.get('/auth/check-admin'),
-  changePassword: (passwordData) => api.post('/auth/change-password', passwordData),
+  createAdmin: (adminData) => api.post('/api/auth/create-admin', adminData),
+  checkAdminExists: () => api.get('/api/auth/admin-exists'),
+  getAdminInfo: () => api.get('/api/auth/admin-info'),
+  checkAdmin: () => api.get('/api/auth/check-admin'),
+  changePassword: (passwordData) => api.post('/api/auth/change-password', passwordData),
 };
 
 // User Services
