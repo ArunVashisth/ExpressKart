@@ -49,9 +49,12 @@ app.use(hpp());
 // CORS configuration (must be BEFORE rate limiter to allow preflight)
 const corsOptions = {
   origin: [
-    process.env.FRONTEND_URL, // Vercel frontend
-    'http://localhost:3000'// Local frontend
-  ],
+    process.env.FRONTEND_URL,          // Environment variable
+    'https://expresskart.vercel.app',  // Production (Snippet version)
+    'https://expresskartt.vercel.app', // Production (Original request)
+    'http://localhost:3000',           // Local React
+    'http://localhost:5173'            // Local Vite
+  ].filter(Boolean), // Filter out any undefined values
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control', 'Pragma'],
