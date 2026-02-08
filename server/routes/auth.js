@@ -121,8 +121,13 @@ router.post('/register', [
     .isIn(['user', 'vendor'])
     .withMessage('Role must be either user or vendor'),
   body('phone')
-    .optional()
-    .matches(/^[\+]?[1-9][\d]{0,15}$/)
+    .optional({ checkFalsy: true })
+    .trim()
+    .custom((value) => {
+      if (!value) return true;
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      return phoneRegex.test(value);
+    })
     .withMessage('Please provide a valid phone number')
 ], async (req, res) => {
   try {
