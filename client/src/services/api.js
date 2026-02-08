@@ -120,58 +120,58 @@ export const authAPI = {
 
 // User Services
 export const userAPI = {
-  getAllUsers: () => api.get('/users'),
-  getUserById: (id) => api.get(`/users/${id}`),
-  updateUser: (id, userData) => api.put(`/users/${id}`, userData),
-  updateUserRole: (id, roleData) => api.patch(`/users/${id}/role`, roleData),
-  deleteUser: (id) => api.delete(`/users/${id}`),
+  getAllUsers: () => api.get('/api/users'),
+  getUserById: (id) => api.get(`/api/users/${id}`),
+  updateUser: (id, userData) => api.put(`/api/users/${id}`, userData),
+  updateUserRole: (id, roleData) => api.patch(`/api/users/${id}/role`, roleData),
+  deleteUser: (id) => api.delete(`/api/users/${id}`),
 };
 
 // Vendor Services
 export const vendorAPI = {
   // Vendor Management (for admin)
-  getAllVendors: () => api.get('/vendors'),
-  getVendor: (id) => api.get(`/vendors/${id}`),
-  getVendorById: (id) => api.get(`/vendors/${id}`), // Alias for backward compatibility
-  createVendor: (vendorData) => api.post('/vendors', vendorData),
-  updateVendor: (id, vendorData) => api.put(`/vendors/${id}`, vendorData),
-  deleteVendor: (id) => api.delete(`/vendors/${id}`),
-  verifyVendor: (id, isVerified) => api.patch(`/vendors/${id}/verify`, { isVerified }),
-  updateVendorStatus: (id, status) => api.patch(`/vendors/${id}/status`, { status }),
-  getNearbyVendors: (params) => api.get('/vendors/nearby', { params }),
+  getAllVendors: () => api.get('/api/vendors'),
+  getVendor: (id) => api.get(`/api/vendors/${id}`),
+  getVendorById: (id) => api.get(`/api/vendors/${id}`), // Alias for backward compatibility
+  createVendor: (vendorData) => api.post('/api/vendors', vendorData),
+  updateVendor: (id, vendorData) => api.put(`/api/vendors/${id}`, vendorData),
+  deleteVendor: (id) => api.delete(`/api/vendors/${id}`),
+  verifyVendor: (id, isVerified) => api.patch(`/api/vendors/${id}/verify`, { isVerified }),
+  updateVendorStatus: (id, status) => api.patch(`/api/vendors/${id}/status`, { status }),
+  getNearbyVendors: (params) => api.get('/api/vendors/nearby', { params }),
 
   // Vendor Profile (for vendors)
-  createProfile: (profileData) => api.post('/vendors/profile', profileData),
-  updateProfile: (profileData) => api.put('/vendors/profile', profileData),
-  getProfile: () => api.get('/vendors/profile'),
-  getProfileStatus: () => api.get('/vendors/status'),
+  createProfile: (profileData) => api.post('/api/vendors/profile', profileData),
+  updateProfile: (profileData) => api.put('/api/vendors/profile', profileData),
+  getProfile: () => api.get('/api/vendors/profile'),
+  getProfileStatus: () => api.get('/api/vendors/status'),
 
   // Vendor Products
   getVendorProducts: (vendorId, params = {}) =>
-    api.get(`/vendors/${vendorId}/products`, { params }),
+    api.get(`/api/vendors/${vendorId}/products`, { params }),
 
   // Vendor Orders
-  getVendorOrders: (params = {}) => api.get('/orders/vendor/orders', { params }),
+  getVendorOrders: (params = {}) => api.get('/api/orders/vendor/orders', { params }),
   updateOrderStatus: (orderId, status) =>
-    api.put(`/orders/${orderId}/status`, { status }),
+    api.put(`/api/orders/${orderId}/status`, { status }),
 
   // Vendor Dashboard
-  getDashboard: () => api.get('/vendors/dashboard'),
+  getDashboard: () => api.get('/api/vendors/dashboard'),
 
   // Vendor Settings
-  updateSettings: (settings) => api.put('/vendors/settings', settings),
-  updateDeliverySettings: (settings) => api.put('/vendors/delivery-settings', settings),
+  updateSettings: (settings) => api.put('/api/vendors/settings', settings),
+  updateDeliverySettings: (settings) => api.put('/api/vendors/delivery-settings', settings),
 
   // Vendor Reviews
   getVendorReviews: (vendorId, params = {}) =>
-    api.get(`/vendors/${vendorId}/reviews`, { params })
+    api.get(`/api/vendors/${vendorId}/reviews`, { params })
 };
 
 // Product Services
 export const productAPI = {
   // Product CRUD
-  getProducts: (params = {}) => api.get('/products', { params }),
-  getProduct: (id) => api.get(`/products/${id}`),
+  getProducts: (params = {}) => api.get('/api/products', { params }),
+  getProduct: (id) => api.get(`/api/products/${id}`),
   createProduct: (productData) => {
     // Check if productData is FormData
     const isFormData = productData instanceof FormData;
@@ -183,7 +183,7 @@ export const productAPI = {
       }
     } : {};
 
-    return api.post('/products', productData, config);
+    return api.post('/api/products', productData, config);
   },
   updateProduct: (id, productData) => {
     // Check if productData is FormData
@@ -196,31 +196,31 @@ export const productAPI = {
       }
     } : {};
 
-    return api.put(`/products/${id}`, productData, config);
+    return api.put(`/api/products/${id}`, productData, config);
   },
-  deleteProduct: (id) => api.delete(`/products/${id}`),
+  deleteProduct: (id) => api.delete(`/api/products/${id}`),
 
   // Product Categories
-  getCategories: () => api.get('/products/categories'),
+  getCategories: () => api.get('/api/products/categories'),
   getProductsByCategory: (category, params = {}) =>
-    api.get(`/products/category/${category}`, { params }),
+    api.get(`/api/products/category/${category}`, { params }),
 
   // Product Search
   searchProducts: (query, params = {}) =>
-    api.get('/products/search', { params: { q: query, ...params } }),
+    api.get('/api/products/search', { params: { q: query, ...params } }),
 
   // Featured & Related
-  getFeaturedProducts: () => api.get('/products/featured'),
-  getRelatedProducts: (productId) => api.get(`/products/${productId}/related`),
+  getFeaturedProducts: () => api.get('/api/products/featured'),
+  getRelatedProducts: (productId) => api.get(`/api/products/${productId}/related`),
 
   // Product Reviews
-  getProductReviews: (productId) => api.get(`/products/${productId}/reviews`),
+  getProductReviews: (productId) => api.get(`/api/products/${productId}/reviews`),
   createProductReview: (productId, reviewData) =>
-    api.post(`/products/${productId}/reviews`, reviewData),
+    api.post(`/api/products/${productId}/reviews`, reviewData),
   getAllProducts: (params) => {
     console.log('Calling getAllProducts API with params:', params);
     // Use the new /all route that doesn't have validation issues
-    return api.get('/products/all', { params })
+    return api.get('/api/products/all', { params })
       .then(response => {
         console.log('getAllProducts API response:', response);
         return response;
@@ -232,7 +232,7 @@ export const productAPI = {
   },
   getProductById: (id) => {
     console.log(`Fetching product details for ID: ${id}`);
-    return api.get(`/products/detail/${id}`)
+    return api.get(`/api/products/detail/${id}`)
       .then(response => {
         console.log('Product details response from fallback route:', response);
         return response;
@@ -241,7 +241,7 @@ export const productAPI = {
         console.error(`Error fetching product ${id} from fallback route:`, error);
         // Try the regular route as a fallback
         console.log(`Trying regular route for product ID: ${id}`);
-        return api.get(`/products/${id}`)
+        return api.get(`/api/products/${id}`)
           .then(response => {
             console.log('Product details response from regular route:', response);
             return response;
@@ -252,58 +252,58 @@ export const productAPI = {
           });
       });
   },
-  getTrendingProducts: () => api.get('/products/trending'),
-  searchProducts: (query) => api.get('/products', { params: query }),
-  getSearchSuggestions: (query) => api.get('/products/search/suggestions', { params: { q: query } }),
-  getNearbyProducts: (params) => api.get('/products/nearby', { params }),
-  getProductsByCategory: (category, params) => api.get(`/products/category/${category}`, { params }),
-  getProductsByVendor: (vendorId, params) => api.get(`/products/vendor/${vendorId}`, { params }),
-  getVendorProducts: () => api.get('/products/vendor/me'),
+  getTrendingProducts: () => api.get('/api/products/trending'),
+  searchProducts: (query) => api.get('/api/products', { params: query }),
+  getSearchSuggestions: (query) => api.get('/api/products/search/suggestions', { params: { q: query } }),
+  getNearbyProducts: (params) => api.get('/api/products/nearby', { params }),
+  getProductsByCategory: (category, params) => api.get(`/api/products/category/${category}`, { params }),
+  getProductsByVendor: (vendorId, params) => api.get(`/api/products/vendor/${vendorId}`, { params }),
+  getVendorProducts: () => api.get('/api/products/vendor/me'),
 };
 
 // Order Services
 export const orderAPI = {
   // Order CRUD
-  createOrder: (orderData) => api.post('/orders', orderData),
-  getOrders: (params = {}) => api.get('/orders', { params }),
-  getOrder: (id) => api.get(`/orders/${id}`),
-  updateOrder: (id, orderData) => api.put(`/orders/${id}`, orderData),
-  cancelOrder: (id, reason) => api.delete(`/orders/${id}`, { data: { reason } }),
+  createOrder: (orderData) => api.post('/api/orders', orderData),
+  getOrders: (params = {}) => api.get('/api/orders', { params }),
+  getOrder: (id) => api.get(`/api/orders/${id}`),
+  updateOrder: (id, orderData) => api.put(`/api/orders/${id}`, orderData),
+  cancelOrder: (id, reason) => api.delete(`/api/orders/${id}`, { data: { reason } }),
 
   // Order Status
   updateOrderStatus: (id, status) =>
-    api.put(`/orders/${id}/status`, { status }),
+    api.put(`/api/orders/${id}/status`, { status }),
 
   // User Orders
-  getMyOrders: (params = {}) => api.get('/orders/my/orders', {
+  getMyOrders: (params = {}) => api.get('/api/orders/my/orders', {
     params: { ...params, _t: Date.now() },
     headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
   }),
-  getMyOrder: (id) => api.get(`/orders/${id}`),
-  getUserOrders: (params = {}) => api.get('/orders/my/orders', {
+  getMyOrder: (id) => api.get(`/api/orders/${id}`),
+  getUserOrders: (params = {}) => api.get('/api/orders/my/orders', {
     params: { ...params, _t: Date.now() },
     headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
   }),
 
   // Vendor Orders
-  getVendorOrders: (params = {}) => api.get('/orders/vendor/orders', {
+  getVendorOrders: (params = {}) => api.get('/api/orders/vendor/orders', {
     params: { ...params, _t: Date.now() },
     headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
   }),
   updateVendorOrderStatus: (id, status) =>
-    api.put(`/orders/vendor/orders/${id}/status`, { status }),
+    api.put(`/api/orders/vendor/orders/${id}/status`, { status }),
 
   // Admin Orders
-  getAllOrders: (params = {}) => api.get('/orders', { params }),
+  getAllOrders: (params = {}) => api.get('/api/orders', { params }),
 };
 
 // Cart Services
 export const cartAPI = {
-  getCart: () => api.get('/cart'),
-  addToCart: (itemData) => api.post('/cart/add', itemData),
-  updateCartItem: (productId, quantity) => api.put(`/cart/update/${productId}`, { quantity }),
-  removeFromCart: (productId) => api.delete(`/cart/remove/${productId}`),
-  clearCart: () => api.delete('/cart/clear'),
+  getCart: () => api.get('/api/cart'),
+  addToCart: (itemData) => api.post('/api/cart/add', itemData),
+  updateCartItem: (productId, quantity) => api.put(`/api/cart/update/${productId}`, { quantity }),
+  removeFromCart: (productId) => api.delete(`/api/cart/remove/${productId}`),
+  clearCart: () => api.delete('/api/cart/clear'),
 };
 
 // Review Services
@@ -311,41 +311,41 @@ export const reviewAPI = {
   // Review CRUD
   createReview: (reviewData) => {
     console.log('API: Creating review with data:', reviewData);
-    return api.post('/reviews', reviewData);
+    return api.post('/api/reviews', reviewData);
   },
-  getReview: (id) => api.get(`/reviews/${id}`),
-  updateReview: (id, reviewData) => api.put(`/reviews/${id}`, reviewData),
-  deleteReview: (id) => api.delete(`/reviews/${id}`),
+  getReview: (id) => api.get(`/api/reviews/${id}`),
+  updateReview: (id, reviewData) => api.put(`/api/reviews/${id}`, reviewData),
+  deleteReview: (id) => api.delete(`/api/reviews/${id}`),
 
   // Product Reviews
   getProductReviews: (productId) => {
     console.log('API: Getting reviews for product:', productId);
-    return api.get(`/reviews/product/${productId}`);
+    return api.get(`/api/reviews/product/${productId}`);
   },
 
   // Vendor Reviews
   getVendorReviews: (vendorId) =>
-    api.get(`/reviews/vendor/${vendorId}`),
+    api.get(`/api/reviews/vendor/${vendorId}`),
 
   // User Reviews
   getUserReviews: () => {
     console.log('API: Getting user reviews');
-    return api.get('/reviews/user/me');
+    return api.get('/api/reviews/user/me');
   },
 
   // Admin
-  getAllReviews: () => api.get('/admin/reviews'),
+  getAllReviews: () => api.get('/api/admin/reviews'),
   moderateReview: (reviewId, moderationData) =>
-    api.patch(`/reviews/${reviewId}/moderate`, moderationData)
+    api.patch(`/api/reviews/${reviewId}/moderate`, moderationData)
 };
 
 // Wishlist Services
 export const wishlistAPI = {
-  getWishlist: () => api.get('/wishlist'),
-  addToWishlist: (productId) => api.post('/wishlist', { productId }),
-  removeFromWishlist: (productId) => api.delete(`/wishlist/${productId}`),
-  checkWishlistStatus: (productId) => api.get(`/wishlist/check/${productId}`),
-  clearWishlist: () => api.delete('/wishlist/clear')
+  getWishlist: () => api.get('/api/wishlist'),
+  addToWishlist: (productId) => api.post('/api/wishlist', { productId }),
+  removeFromWishlist: (productId) => api.delete(`/api/wishlist/${productId}`),
+  checkWishlistStatus: (productId) => api.get(`/api/wishlist/check/${productId}`),
+  clearWishlist: () => api.delete('/api/wishlist/clear')
 };
 
 // Upload Services
@@ -356,7 +356,7 @@ export const uploadAPI = {
     formData.append('file', file);
     formData.append('folder', folder);
 
-    return api.post('/upload', formData, {
+    return api.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -371,7 +371,7 @@ export const uploadAPI = {
     });
     formData.append('folder', folder);
 
-    return api.post('/upload/multiple', formData, {
+    return api.post('/api/upload/multiple', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -379,7 +379,7 @@ export const uploadAPI = {
   },
 
   // Delete File
-  deleteFile: (publicId) => api.delete(`/upload/files/${publicId}`),
+  deleteFile: (publicId) => api.delete(`/api/upload/files/${publicId}`),
 
   // Product Images
   uploadProductImage: (file) => uploadAPI.uploadFile(file, 'products'),
@@ -395,7 +395,7 @@ export const uploadAPI = {
     const formData = new FormData();
     formData.append('image', file);
     formData.append('folder', folder);
-    return api.post('/upload/single', formData, {
+    return api.post('/api/upload/single', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -405,7 +405,7 @@ export const uploadAPI = {
     const formData = new FormData();
     files.forEach(file => formData.append('images', file));
     formData.append('folder', folder);
-    return api.post('/upload/multiple', formData, {
+    return api.post('/api/upload/multiple', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -414,7 +414,7 @@ export const uploadAPI = {
   uploadProductImages: (files) => {
     const formData = new FormData();
     files.forEach(file => formData.append('images', file));
-    return api.post('/upload/product', formData, {
+    return api.post('/api/upload/product', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -423,79 +423,79 @@ export const uploadAPI = {
   uploadVendorImages: (files) => {
     const formData = new FormData();
     files.forEach(file => formData.append('images', file));
-    return api.post('/upload/vendor', formData, {
+    return api.post('/api/upload/vendor', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
   },
-  deleteImage: (publicId) => api.delete(`/upload/${publicId}`),
-  deleteMultipleImages: (publicIds) => api.delete('/upload/multiple', { data: { publicIds } }),
-  getOptimizedUrl: (publicId, options = {}) => api.get(`/upload/optimize/${publicId}`, { params: options })
+  deleteImage: (publicId) => api.delete(`/api/upload/${publicId}`),
+  deleteMultipleImages: (publicIds) => api.delete('/api/upload/multiple', { data: { publicIds } }),
+  getOptimizedUrl: (publicId, options = {}) => api.get(`/api/upload/optimize/${publicId}`, { params: options })
 };
 
 // Admin Services
 export const adminAPI = {
   // Dashboard
-  getDashboardStats: () => api.get('/admin/dashboard/stats'),
+  getDashboardStats: () => api.get('/api/admin/dashboard/stats'),
 
   // Users Management
-  getUsers: (params = {}) => api.get('/admin/users', { params }),
-  getUser: (id) => api.get(`/admin/users/${id}`),
-  updateUser: (id, userData) => api.put(`/admin/users/${id}`, userData),
-  deleteUser: (id) => api.delete(`/admin/users/${id}`),
+  getUsers: (params = {}) => api.get('/api/admin/users', { params }),
+  getUser: (id) => api.get(`/api/admin/users/${id}`),
+  updateUser: (id, userData) => api.put(`/api/admin/users/${id}`, userData),
+  deleteUser: (id) => api.delete(`/api/admin/users/${id}`),
 
   // Vendors Management
-  getVendors: (params = {}) => api.get('/admin/vendors', { params }),
-  getVendor: (id) => api.get(`/admin/vendors/${id}`),
-  updateVendor: (id, vendorData) => api.put(`/admin/vendors/${id}`, vendorData),
-  deleteVendor: (id) => api.delete(`/admin/vendors/${id}`),
+  getVendors: (params = {}) => api.get('/api/admin/vendors', { params }),
+  getVendor: (id) => api.get(`/api/admin/vendors/${id}`),
+  updateVendor: (id, vendorData) => api.put(`/api/admin/vendors/${id}`, vendorData),
+  deleteVendor: (id) => api.delete(`/api/admin/vendors/${id}`),
   verifyVendor: (id, isVerified) =>
-    api.put(`/admin/vendors/${id}/verify`, { isVerified }),
+    api.put(`/api/admin/vendors/${id}/verify`, { isVerified }),
 
   // Products Management
-  getProducts: (params = {}) => api.get('/admin/products', { params }),
-  getProduct: (id) => api.get(`/admin/products/${id}`),
+  getProducts: (params = {}) => api.get('/api/admin/products', { params }),
+  getProduct: (id) => api.get(`/api/admin/products/${id}`),
   updateProduct: (id, productData) =>
-    api.put(`/admin/products/${id}`, productData),
-  deleteProduct: (id) => api.delete(`/admin/products/${id}`),
+    api.put(`/api/admin/products/${id}`, productData),
+  deleteProduct: (id) => api.delete(`/api/admin/products/${id}`),
 
   // Orders Management
-  getOrders: (params = {}) => api.get('/admin/orders', { params }),
-  getOrder: (id) => api.get(`/admin/orders/${id}`),
-  updateOrder: (id, orderData) => api.put(`/admin/orders/${id}`, orderData),
+  getOrders: (params = {}) => api.get('/api/admin/orders', { params }),
+  getOrder: (id) => api.get(`/api/admin/orders/${id}`),
+  updateOrder: (id, orderData) => api.put(`/api/admin/orders/${id}`, orderData),
 
   // Reviews Management
-  getReviews: (params = {}) => api.get('/admin/reviews', { params }),
-  updateReview: (id, reviewData) => api.put(`/admin/reviews/${id}`, reviewData),
+  getReviews: (params = {}) => api.get('/api/admin/reviews', { params }),
+  updateReview: (id, reviewData) => api.put(`/api/admin/reviews/${id}`, reviewData),
 
   // System Settings
-  getSettings: () => api.get('/admin/settings'),
-  updateSettings: (settings) => api.put('/admin/settings', settings),
+  getSettings: () => api.get('/api/admin/settings'),
+  updateSettings: (settings) => api.put('/api/admin/settings', settings),
 
   // Reports
   generateReport: (type, params = {}) =>
-    api.get(`/admin/reports/${type}`, { params, responseType: 'blob' }),
-  getDashboardData: () => api.get('/admin/dashboard'),
-  getAllUsers: () => api.get('/admin/users'),
-  getAllVendors: () => api.get('/admin/vendors'),
-  getAllProducts: () => api.get('/admin/products'),
-  getAllOrders: () => api.get('/orders'),
-  getAllReviews: () => api.get('/admin/reviews'),
-  updateUserStatus: (id, isActive, reason) => api.patch(`/admin/users/${id}/status`, { isActive, reason }),
-  updateVendorVerification: (id, isVerified, notes) => api.patch(`/admin/vendors/${id}/verify`, { isVerified, notes }),
-  updateVendorStatus: (id, status, reason) => api.patch(`/admin/vendors/${id}/status`, { status, reason }),
-  updateProductStatus: (id, isActive, reason) => api.patch(`/admin/products/${id}/status`, { isActive, reason }),
-  updateOrderStatus: (id, status, notes) => api.patch(`/admin/orders/${id}/status`, { status, notes }),
-  moderateReview: (id, status, reason) => api.patch(`/admin/reviews/${id}/moderate`, { status, reason }),
+    api.get(`/api/admin/reports/${type}`, { params, responseType: 'blob' }),
+  getDashboardData: () => api.get('/api/admin/dashboard'),
+  getAllUsers: () => api.get('/api/admin/users'),
+  getAllVendors: () => api.get('/api/admin/vendors'),
+  getAllProducts: () => api.get('/api/admin/products'),
+  getAllOrders: () => api.get('/api/orders'),
+  getAllReviews: () => api.get('/api/admin/reviews'),
+  updateUserStatus: (id, isActive, reason) => api.patch(`/api/admin/users/${id}/status`, { isActive, reason }),
+  updateVendorVerification: (id, isVerified, notes) => api.patch(`/api/admin/vendors/${id}/verify`, { isVerified, notes }),
+  updateVendorStatus: (id, status, reason) => api.patch(`/api/admin/vendors/${id}/status`, { status, reason }),
+  updateProductStatus: (id, isActive, reason) => api.patch(`/api/admin/products/${id}/status`, { isActive, reason }),
+  updateOrderStatus: (id, status, notes) => api.patch(`/api/admin/orders/${id}/status`, { status, notes }),
+  moderateReview: (id, status, reason) => api.patch(`/api/admin/reviews/${id}/moderate`, { status, reason }),
 };
 
 // Enquiry Services
 export const enquiryAPI = {
-  createEnquiry: (data) => api.post('/enquiries', data),
-  getAllEnquiries: () => api.get('/enquiries'),
-  updateEnquiryStatus: (id, status) => api.put(`/enquiries/${id}`, { status }),
-  deleteEnquiry: (id) => api.delete(`/enquiries/${id}`),
+  createEnquiry: (data) => api.post('/api/enquiries', data),
+  getAllEnquiries: () => api.get('/api/enquiries'),
+  updateEnquiryStatus: (id, status) => api.put(`/api/enquiries/${id}`, { status }),
+  deleteEnquiry: (id) => api.delete(`/api/enquiries/${id}`),
 };
 
 export default api;
