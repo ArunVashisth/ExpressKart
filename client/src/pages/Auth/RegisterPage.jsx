@@ -103,10 +103,10 @@ const RegisterPage = () => {
           .replace(/\++/g, '+')
         : ''
       
-      // Cleaner approach: extract + and digits only
-      const cleanPhone = phone
+      // Cleaner approach: extract + and digits only, or undefined if empty
+      const cleanPhone = phone && phone.trim()
         ? (phone.match(/\+/g)?.[0] || '') + phone.replace(/\D/g, '')
-        : ''
+        : undefined
 
       // Make API call based on role
       let response = role === 'admin'
