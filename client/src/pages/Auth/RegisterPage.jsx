@@ -94,10 +94,24 @@ const RegisterPage = () => {
     try {
       const { name, email, phone, role, password } = formData
 
+      // Normalize phone number: remove all spaces and non-digit chars, keep optional +
+      const normalizedPhone = phone
+        ? phone.replace(/\s/g, '').replace(/^(\+?)(\D*)/, '$1').replace(/\D/g, (m, i, s) => s[i - 1] === '+' && i === 1 ? '' : m)
+          .replace(/[^\d+]/g, '')
+          .replace(/^(?!\+)/, '')
+          .replace(/\+(?!\d)/g, '')
+          .replace(/\++/g, '+')
+        : ''
+      
+      // Cleaner approach: extract + and digits only
+      const cleanPhone = phone
+        ? (phone.match(/\+/g)?.[0] || '') + phone.replace(/\D/g, '')
+        : ''
+
       // Make API call based on role
       let response = role === 'admin'
-        ? await authAPI.createAdmin({ name, email, phone, password })
-        : await authAPI.register({ name, email, phone, role, password })
+        ? await authAPI.createAdmin({ name, email, phone: cleanPhone, password })
+        : await authAPI.register({ name, email, phone: cleanPhone, role, password })
 
       const { token, user } = response.data.data || response.data
 
