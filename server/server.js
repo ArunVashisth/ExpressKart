@@ -32,6 +32,9 @@ const { connectDB } = require('./config/database');
 
 const app = express();
 
+// Trust proxy - required for express-rate-limit to work correctly on Render
+app.set('trust proxy', 1);
+
 // Connect to MongoDB
 connectDB().then(() => {
   console.log('MongoDB connected successfully');
